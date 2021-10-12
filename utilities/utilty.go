@@ -113,39 +113,28 @@ func PressAnyKeyToExit() {
 	fmt.Println(input1)
 }
 
-func ReadAndValidateLines() (*models.Plateau, *models.Rover, []string, *models.Rover, []string) {
+func TryParseAllInputs(i1 string, i2 string, i3 string, i4 string, i5 string) (*models.Plateau, *models.Rover, []string, *models.Rover, []string) {
 
-	reader := bufio.NewReader(os.Stdin)
 	// plateau area
-	fmt.Print("Enter plateau area (like -> 5 5): ")
-	input1, _ := reader.ReadString('\n')
-	P := TryParsePlateau(input1)
+	P := TryParsePlateau(i1)
 
 	// rover coordinates
-	fmt.Print("Enter first rover coordinates (like -> 1 2 N): ")
-	input2, _ := reader.ReadString('\n')
-	R1 := TryParseRover(input2)
+	R1 := TryParseRover(i2)
 	if R1.X > P.XMax || R1.Y > P.YMax || R1.X < 0 || R1.Y < 0 {
 		exceptions.ThrowOutOfArea()
 	}
 
 	// first rover commands
-	fmt.Print("Enter first rover commands (like -> LMLMLMLMM): ")
-	input3, _ := reader.ReadString('\n')
-	c1 := TryParseCommand(input3)
+	c1 := TryParseCommand(i3)
 
 	// second rover coordinates
-	fmt.Print("Enter second rover coordinates(like -> 3 3 E): ")
-	input4, _ := reader.ReadString('\n')
-	R2 := TryParseRover(input4)
+	R2 := TryParseRover(i4)
 	if R2.X > P.XMax || R2.Y > P.YMax || R2.X < 0 || R2.Y < 0 {
 		exceptions.ThrowOutOfArea()
 	}
 
 	// second rover commands
-	fmt.Print("Enter second rover commands(like -> MMRMMRMRRM): ")
-	input5, _ := reader.ReadString('\n')
-	c2 := TryParseCommand(input5)
+	c2 := TryParseCommand(i5)
 
 	return P, R1, c1, R2, c2
 }
